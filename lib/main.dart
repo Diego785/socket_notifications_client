@@ -105,13 +105,11 @@ void main() async {
               content: NotificationContent(
                 id: 10,
                 channelKey: 'basic_channel',
-                title: 'Productos próximos a vencerse',
+                title: 'Productos próximos a vencerse: ',
                 body: (await ProductsService().getProductwithExpirationDate())
                     .map(
                       (producto) =>
-                          producto.nombre +
-                          " - " +
-                          producto.fechaVencimiento.toString().substring(0, 10),
+                          "${producto.nombre} - ${producto.fechaVencimiento.toString().substring(0, 10)}",
                     )
                     .toString(),
                     notificationLayout: NotificationLayout.BigText,

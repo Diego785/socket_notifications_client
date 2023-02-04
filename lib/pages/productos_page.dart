@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:socket_notifications/pages/productos.dart';
 
 import 'package:socket_notifications/services/socket_service.dart';
 import 'package:socket_notifications/models/producto.dart';
@@ -33,7 +34,7 @@ class _ProductsPageState extends State<ProductsPage> {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            "Socket Notificaitons - List of Products",
+            "Lista de Productos",
             style: TextStyle(color: Colors.black87),
           ),
         ),
@@ -82,25 +83,40 @@ class _ProductsPageState extends State<ProductsPage> {
 
   ListView _listViewProducts() {
     return ListView.separated(
+      primary: false,
+      shrinkWrap: true,
       physics: BouncingScrollPhysics(),
-      itemBuilder: (_, i) => _productoListTile(productos[i]),
-      separatorBuilder: (_, i) => Divider(),
+      itemBuilder: (_, i) => ProductosContainer(producto: productos[i]),
+      separatorBuilder: (_, i) => Divider(
+        thickness: 10,
+        color: Colors.transparent,
+      ),
       itemCount: productos.length,
+      padding: EdgeInsets.all(12),
     );
   }
 
-  ListTile _productoListTile(Product producto) {
-    return ListTile(
-      title: Text(producto.nombre),
-      subtitle: Text(producto.fechaVencimiento.toString()),
-      leading: CircleAvatar(
-        child: Text(producto.nombre.substring(0, 2)),
-        backgroundColor: Colors.blue[100],
-      ),
+  // ListView _listViewProducts() {
+  //   return ListView.separated(
+  //     physics: BouncingScrollPhysics(),
+  //     itemBuilder: (_, i) => _productoListTile(productos[i]),
+  //     separatorBuilder: (_, i) => Divider(),
+  //     itemCount: productos.length,
+  //   );
+  // }
+
+  // ListTile _productoListTile(Product producto) {
+  //   return ListTile(
+  //     title: Text(producto.nombre),
+  //     subtitle: Text(producto.fechaVencimiento.toString()),
+  //     leading: CircleAvatar(
+  //       child: Text(producto.nombre.substring(0, 2)),
+  //       backgroundColor: Colors.blue[100],
+  //     ),
       
       
-    );
-  }
+  //   );
+  // }
 
   _cargarProducts() async {
     this.productos = await productsService.getProducts();

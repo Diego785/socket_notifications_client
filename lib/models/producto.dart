@@ -31,31 +31,31 @@ class ProductosResponse {
 class Product {
     Product({
         required this.id,
+        required this.foto,
         required this.nombre,
         required this.fechaCreacion,
         required this.fechaVencimiento,
-        required this.v,
     });
 
     String id;
+    String foto;
     String nombre;
     DateTime fechaCreacion;
     DateTime fechaVencimiento;
-    int v;
 
     factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["_id"],
+        foto: json["foto"],
         nombre: json["nombre"],
         fechaCreacion: DateTime.parse(json["fechaCreacion"]),
         fechaVencimiento: DateTime.parse(json["fechaVencimiento"]),
-        v: json["__v"],
     );
 
     Map<String, dynamic> toJson() => {
         "_id": id,
+        "foto": foto,
         "nombre": nombre,
         "fechaCreacion": fechaCreacion.toIso8601String(),
         "fechaVencimiento": fechaVencimiento.toIso8601String(),
-        "__v": v,
     };
 }
